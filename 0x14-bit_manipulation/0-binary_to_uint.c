@@ -6,7 +6,7 @@
 *converting binary to unsigned int
 */
 
-unsigned int binary_to_uint(const char *b)
+unsigned int binary_to_uint (const char *b)
 {
        	unsigned int total, pow;
 	int num;
