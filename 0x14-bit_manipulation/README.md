@@ -1,1 +1,1 @@
-A readme for the 0x14-bit_manipulation c programming project
+A readme for the 0x14-bit_manipulation c programming project.
