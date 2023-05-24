@@ -6,22 +6,13 @@
 #include <sys/wait.h>
 #include <errno.h>
 
-/**
-* kash_exit - exit the shell
-* kash_help - for the man files
-* kash_cd - to change dirctory
-* return - close the methods
-*/
-
-void kash_exit(char **args)
+// exit the shell
+void kash_exit (char **args)
 {
 	exit(0);
 }
 
-/*
- * change working directory.
- */
-
+//change working directory.
 void kash_cd(char **args)
 {
 	if(args[1] == NULL)
@@ -38,10 +29,7 @@ void kash_cd(char **args)
 
 }
 
-/*
- * printing the shell's help text
- */
-
+//printing the shell's help text
 void kash_help(char **args)
 {
 	char *helptext =
@@ -54,20 +42,14 @@ void kash_help(char **args)
 	printf("%s", helptext);
 }
 
-/*
- * built-in instance associated with the handler functions
- */
-
+//built-in instance associated with the handler functions
 struct builtin
 {
 	char *name;
 	void (*func)(char **args);
 };
 
-/*
- * array of the built in commands
- */
-
+//array of the built in commands
 struct builtin builtins[] =
 		{
 		{"help", kash_help},
@@ -75,24 +57,18 @@ struct builtin builtins[] =
 		{"cd", kash_cd},
 		};
 
-/*
- * returns number of built in commands
- */
-
+//returns number of built in commands
 int kash_num_builtins()
 {
 	return sizeof(builtins) / sizeof(struct builtin);
 }
 
-/*
- * executing the commands...lauching
- */
-
+//executing the commands...lauching
 void kash_exec(char **args)
 {
-	for(int i =0; i < kash_num_builtins(); i++)
+	for (int i =0; i < kash_num_builtins(); i++)
 	{
-		if(strcmp(args[0], builtins[1].name) == 0)
+		if(strcomp(args[0], builtins[1].name) == 0)
 		{
 			builtins[i].func(args);
 			return;
@@ -101,7 +77,7 @@ void kash_exec(char **args)
 
 	pid_t child_pid = fork();
 
-	if (child_pid == 0)
+	if (child_pis == 0)
 	{
 		execvp(args[0], args);
 		perror("kash");
@@ -122,10 +98,7 @@ void kash_exec(char **args)
 	}
 }
 
-/*
- * tokenisation
- */
-
+// tokenisation
 char** kash_split_line(char *line)
 {
 	int length = 0;
@@ -165,16 +138,13 @@ char** kash_split_line(char *line)
 	return tokens;
 }
 
-/*
- * reding the line
- */
-
-char* kash_read_line()
+//reding the line
+char* kash readline()
 {
 	char *line = NULL;
 	size_t buflen = 0;
 	errno = 0;
-	ssize_t strlen = getline(&line, &buflen, stdin);
+	ssize_t strlen = getline(&len, &buflen, stdin);
 
 	if (strlen <0)
 	{
@@ -187,9 +157,7 @@ char* kash_read_line()
 	return line;
 }
 
-/*
- * entry point main method
- */
+//entry point.../... main method
 
 int main()
 {
@@ -201,10 +169,11 @@ int main()
 
 		if (tokens[0] != NULL)
 		{
-			kash_exec(tokens);
+			kash_exec(tokens)
 		}
 
 		free(tokens);
 		free(line);
 	}
 }
+
